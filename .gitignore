@@ -1,0 +1,13 @@
+# Ignorar ambiente virtual
+venv/
+.Venv/
+.venv/
+ENV/
+env/
+
+# Ignorar banco de dados
+*.db
+
+# Ignorar arquivos temporários do Python
+__pycache__/
+*.pyc

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Funcionários</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+    <h2 class="mb-4">Sistema de Controle de Ponto</h2>
+
+    <!-- Menu de navegação -->
+    <div class="mb-4">
+    <a class="btn btn-secondary" href="{{ url_for('registros') }}">Registros</a>
+    </div>
+
+
+
+    <!-- Formulário de cadastro -->
+    <div class="card mb-4">
+        <div class="card-header">Cadastro de Funcionário</div>
+        <div class="card-body">
+            <form method="POST" action="/funcionarios">
+                <div class="mb-3">
+                    <label for="nome" class="form-label">Nome:</label>
+                    <input type="text" id="nome" name="nome" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="matricula" class="form-label">Matrícula:</label>
+                    <input type="text" id="matricula" name="matricula" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="cargo" class="form-label">Cargo:</label>
+                    <input type="text" id="cargo" name="cargo" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-success">Cadastrar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Lista de funcionários -->
+    <h4 class="mb-3">Funcionários Cadastrados</h4>
+    <table class="table table-bordered">
+        <thead class="table-light">
+            <tr>
+                <th>Nome</th>
+                <th>Matrícula</th>
+                <th>Cargo</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for f in funcionarios %}
+            <tr>
+                <td>{{ f[1] }}</td>
+                <td>{{ f[2] }}</td>
+                <td>{{ f[3] }}</td>
+                <td>
+                    <form action="/registrar/{{ f[0] }}/entrada" method="post" style="display:inline-block;">
+                        <button class="btn btn-success btn-sm">Entrada</button>
+                    </form>
+                    <form action="/registrar/{{ f[0] }}/saida" method="post" style="display:inline-block;">
+                        <button class="btn btn-danger btn-sm">Saída</button>
+                    </form>
+                    <form action="/remover_funcionario/{{ f[0] }}" method="post" style="display:inline-block;" onsubmit="return confirm('Deseja remover este funcionário?');">
+                        <button class="btn btn-outline-danger btn-sm">Remover</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
