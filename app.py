@@ -1,4 +1,3 @@
-
 from flask import Flask, render_template, request, redirect, send_file
 import sqlite3
 from datetime import datetime
@@ -29,6 +28,9 @@ def iniciar_banco():
             )
         ''')
         conexao.commit()
+
+# inicia banco
+iniciar_banco()
 
 @app.route('/')
 def pagina_inicial():
@@ -132,5 +134,4 @@ def limpar_registros():
     return redirect('/registros')
 
 if __name__ == '__main__':
-    iniciar_banco()
     app.run(debug=True)
